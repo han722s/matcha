@@ -1,0 +1,62 @@
+<!--Navbar-->
+<nav class="navbar navbar-expand-lg navbar-dark purple-gradient" >
+
+  <!-- Navbar brand -->
+  <a class="navbar-brand" href="/">Matcha</a>
+
+  <!-- Collapse button -->
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#basicExampleNav"
+    aria-controls="basicExampleNav" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <!-- Collapsible content -->
+  <div class="collapse navbar-collapse" id="basicExampleNav">
+
+    <!-- Links -->
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item active">
+        <a class="nav-link" href="/users/advancedSearch">Advanced search
+          <span class="sr-only">(current)</span>
+        </a>
+      </li>
+      <li class="nav-item dropdown">
+        <a class="nav-link" role="button" data-toggle="dropdown" aria-haspopup="true"
+          aria-expanded="false">
+          <i class="far fa-comments"></i>Conversations<span id="chatCounter" class="badge badge-danger ml-2"></span>
+        </a>
+        <ul class="dropdown-menu" id="chat">
+        </ul>
+      </li>
+
+      <li class="nav-item dropdown">
+        <a class="nav-link" role="button" id="notifLink" data-toggle="dropdown" aria-haspopup="true"
+          aria-expanded="false">
+          <i class="far fa-bell"></i>Notifications<span id="notifCounter" class="badge badge-danger ml-2"></span>
+        </a>
+        <ul class="dropdown-menu scroll" id="notification">
+          
+        </ul>
+      </li>
+
+      <!-- Dropdown -->
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
+          aria-expanded="false">
+          <i class="far fa-user"></i>
+        </a>
+        <div class="dropdown-menu dropdown-menu-right dropdown-default" aria-labelledby="navbarDropdownMenuLink-333">
+          <a class="dropdown-item" href="/activity"><i class="fas fa-check-double"></i> My Activity</a>
+          <a class="dropdown-item" href="/history"><i class="fas fa-archive"></i> My History</a>
+          <a class="dropdown-item" href="/editProfile"> <i class="fas fa-portrait"></i> Edit Profile</a>
+          <a class="dropdown-item" href="/changePassword"><i class="fas fa-lock"></i> Change Password</a>
+          <a class="dropdown-item" href="/logout"><i class="fas fa-door-open"></i> Logout</a>
+        </div>
+      </li>
+    </ul>
+    <!-- Links -->
+  </div>
+  <!-- Collapsible content -->
+
+</nav>
+<!--/.Navbar-->

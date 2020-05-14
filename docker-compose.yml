@@ -1,0 +1,49 @@
+version: "3"
+
+services:
+  neo4j:
+    image: neo4j:3.4
+    container_name: "database"
+    ports:
+      - "7473:7473"
+      - "7474:7474"
+      - "7687:7687"
+    volumes:
+      - ./data/dbms:/data/dbms
+      - ./data/databases:/data/databases
+      - ./data/plugins:/var/lib/neo4j/plugins
+    environment:
+      - NEO4J_AUTH=neo4j/root
+      - NEO4J_apoc_export_file_enabled=true
+      - NEO4J_apoc_import_file_enabled=true
+      - NEO4J_apoc_import_file_use__neo4j__config=true
+  api:
+    build:
+      context: ./api
+    container_name: "api"
+    restart: "always"
+    ports:
+      - "3000:3000"
+    links:
+      - neo4j
+    volumes:
+      - api/node_modules
+      - ./api:/api
+    working_dir: /api
+    entrypoint: node app.js
+
+  front:
+    build:
+      context: ./front
+    container_name: "front"
+    restart: "always"
+    ports:
+      - "8080:8080"
+    links:
+      - api
+    volumes:
+      - front/node_modules
+      - ./front:/front
+    working_dir: /front
+    entrypoint: node app.js
+    

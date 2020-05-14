@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+<%- include ('../partials/head.ejs') %>
+<!--Navbar-->
+<nav class="navbar navbar-expand-lg navbar-dark purple-gradient" >
+
+  <!-- Navbar brand -->
+  <a class="navbar-brand" href="/">Matcha</a>
+
+  <!-- Collapse button -->
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#basicExampleNav"
+    aria-controls="basicExampleNav" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <!-- Collapsible content -->
+  <div class="collapse navbar-collapse" id="basicExampleNav">
+
+    <!-- Links -->
+    <ul class="navbar-nav mr-auto">
+      <!-- Dropdown -->
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
+          aria-expanded="false">
+          <i class="far fa-user"></i>
+        </a>
+        <div class="dropdown-menu dropdown-menu-right dropdown-default" aria-labelledby="navbarDropdownMenuLink-333">
+          <a class="dropdown-item" href="/logout"><i class="fas fa-door-open"></i> Logout</a>
+        </div>
+      </li>
+    </ul>
+    <!-- Links -->
+  </div>
+  <!-- Collapsible content -->
+
+</nav>
+<!--/.Navbar-->
+<body>
+    <div class="container"><form class="form-horizontal" method="POST" action="/complete" enctype="multipart/form-data">
+        <div class="row d-flex justify-content-center mt-5">
+            <div class="col text-center">
+                
+                    <div class="row">
+                        <div class="col">
+                            <img class="img-thumbnail img-fluid " onclick="triggerClick()" id="profile"
+                                src="/assets/images/add.png" width="50%" height="50%">
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col">
+                            <input accept="image/*" onchange="displayImage(this)" type="file" id="pictureselect"
+                                name="profile" style="display:none;">
+                        </div>
+                    </div>
+            </div>
+
+        </div>
+
+        <div class="row d-flex justify-content-center mt-3" >
+            <div class="col" id="info">
+                <% if(typeof message !== 'undefined'){ %>
+                <div class="alert alert-danger">
+                    <%= message %>
+                </div>
+                <% } %>
+            </div>
+        </div>
+        <div class="row d-flex justify-content-center mt-2" >
+            <div class="col">
+                <div class="card " style="margin-top: 25px;">
+                    <div class="card-header">
+                        <h3>Complete Profile</h3> 
+                    </div>
+                    <div class="card-body">
+                                <label>Gender</label>
+                                <select class="form-control" id="gender" name="gender">
+                                    <option value="male">male</option>
+                                    <option value="female">female</option>
+                                </select>
+                                <br>
+                                <label>Orientation</label>
+                                <select class="form-control" id="orientation" name="orientation">
+                                    <option value="Bisexual">Bisexual</option>
+                                    <option value="Heterosexual">Heterosexual</option>
+                                    <option value="Homosexual">Homosexual</option>
+                                </select>
+                                <br>
+                                <label>Birth Date</label>
+                                <input type="date" class="form-control" id="birthdate" placeholder="birth date"
+                                    name="birthdate">
+                                <br>
+                                <label for="location">Your location</label>
+                                <input type="text" class="form-control" id="location" name="location"
+                                    placeholder="Fill me out">
+                                <br>
+                                <label>Your bio</label>
+                                <textarea class="form-control" name="bio" id="bio" rows="3"></textarea>
+                                <br>
+                                <input type="text" class="form-control" id="interests" name="interests"
+                                    placeholder="movies-kittens-travel-sport"><br>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+             <input class="btn purple-gradient btn-lg" type="submit" value="done">
+         </form>
+    </div>
+  
+    <%- include ('../partials/scripts.ejs') %>
+    <script src="/assets/js/complete.js"></script>
+    <%- include ('../partials/footer.ejs') %>
+</body>
+
+</html>

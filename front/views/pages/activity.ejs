@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html>
+<%- include ('../partials/head.ejs') %>
+
+<body>
+    <%- include ('../partials/navbar.ejs') %>
+
+    <% if(typeof results != 'undefined'){ %>
+    <div class="container mt-5">
+        <h1>My Activity</h1>
+        <% if(typeof activity_error_msg != 'undefined'){ %>
+          <div class="alert alert-info">
+              <%= activity_error_msg %>
+          </div>
+          <% } %>
+        <hr>
+        <div class="row">
+            <div class="col-md-2 mb-3">
+                <ul class="nav nav-pills flex-column" id="myTab" role="tablist">
+                    <li class="nav-item">
+                        <a class="nav-link  active" id="views-tab" data-toggle="tab" href="#views" role="tab"
+                            aria-controls="views" aria-selected="true">views</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="likes-tab" data-toggle="tab" href="#likes" role="tab"
+                            aria-controls="likes" aria-selected="false">likes</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="dislikes-tab" data-toggle="tab" href="#dislikes" role="tab"
+                            aria-controls="dislikes" aria-selected="false">dislikes</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="blocked-tab" data-toggle="tab" href="#blocked" role="tab"
+                            aria-controls="blocked" aria-selected="false">blocked</a>
+                    </li>
+                </ul>
+            </div>
+            <!-- /.col-md-4 -->
+            <div class="col-md-10">
+                <div class="tab-content" id="myTabContent">
+                    <div class="tab-pane fade show active" id="views" role="tabpanel" aria-labelledby="views-tab">
+                        <h2>Views</h2>
+                        <div class="row">
+                         <% if(typeof results.views == 'object'){ %>
+                            <% results.views.forEach((user) => { %>
+                                <div class="col-lg-4 col-md-6 col-sm-12">
+                                    <div class="card card-cascade mt-3">
+                                      <div class="view view-cascade overlay">
+                                        <img class="card-img-top embed-responsive embed-responsive-16by9"
+                                        src="/assets/images/<%= ( typeof user.profilepicture != 'undefined') ?  user.profilepicture  : 'add.png' %>" alt="Card image cap">
+                                        <a href="/users/view/<%= user.uuid %>" target="_blank">
+                                          <div class="mask rgba-white-slight"></div>
+                                        </a>
+                                      </div>
+                                      <div class="card-body card-body-cascade text-center">
+                                        <h5 class="card-title"><strong><%= user.username %></strong></h5>
+                                        <h6 class="font-weight-bold indigo-text py-2"><%= user.name %></h6>
+                                        <div class="row justify-content-center text-center mt-2">
+                                          <div class="col-6 ">
+                                            <h4><i class="fas fa-star"></i><%= user.fameRating %></h4>
+                                          </div>
+                                          <div class="col-6 ">
+                                            <h4><i class="fas fa-birthday-cake"></i> <%= user.age %></h4>
+                                          </div>
+                                        </div>
+                                        <div class="row justify-content-center text-center mt-2">
+                                          <div class="col-lg-6 ">
+                                            <h5><i class="fas fa-venus-mars"></i> <%= user.gender %></h5>
+                                          </div>
+                                          <div class="col-lg-6 ">
+                                            <h5><i class="fas fa-map-marker"></i> <%= user.distance %></h5>
+                                          </div>
+                                        </div>
+                                        <button type="button" id="<%= user.uuid %>" onclick="userLike(this.id)" class="btn btn-cyan btn-circle">
+                                          <i class="fas fa-thumbs-up"></i>
+                                        </button>
+                                        <button type="button" id="<%= user.uuid %>" onclick="userReport(this.id)"
+                                          class="btn btn-amber btn-circle"><i class="fas fa-flag"></i>
+                                        </button>
+                                        <button type="button" id="<%= user.uuid %>" onclick="userDislike(this.id)"
+                                          class="btn btn-pink btn-circle"><i class="fas fa-thumbs-down"></i></button>
+                                      </div>
+                                    </div>
+                                  </div>
+                            
+                            <% }) %>
+                            <% } else { %>
+                              <div class="alert alert-info">
+                                <h6>No Users Viewed</h6>
+                              </div>
+                               <% } %>
+                        </div>
+
+                    </div>
+                    <div class="tab-pane fade" id="likes" role="tabpanel" aria-labelledby="likes-tab">
+                        <h2>Likes</h2>
+                        <div class="row">
+                            <% if(typeof results.likes == 'object'){ %>
+                               <% results.likes.forEach((user) => { %>
+                                   <div class="col-lg-4 col-md-6 col-sm-12">
+                                       <div class="card card-cascade mt-3">
+                                         <div class="view view-cascade overlay">
+                                           <img class="card-img-top embed-responsive embed-responsive-16by9"
+                                           src="/assets/images/<%= ( typeof user.profilepicture != 'undefined') ?  user.profilepicture  : 'add.png' %>"              alt="Card image cap">
+                                           <a href="/users/view/<%= user.uuid %>" target="_blank">
+                                             <div class="mask rgba-white-slight"></div>
+                                           </a>
+                                         </div>
+                                         <div class="card-body card-body-cascade text-center">
+                                           <h5 class="card-title"><strong><%= user.username %></strong></h5>
+                                           <h6 class="font-weight-bold indigo-text py-2"><%= user.name %></h6>
+                                           <div class="row justify-content-center text-center mt-2">
+                                             <div class="col-6 ">
+                                               <h4><i class="fas fa-star"></i><%= user.fameRating %></h4>
+                                             </div>
+                                             <div class="col-6 ">
+                                               <h4><i class="fas fa-birthday-cake"></i> <%= user.age %></h4>
+                                             </div>
+                                           </div>
+                                           <div class="row justify-content-center text-center mt-2">
+                                             <div class="col-lg-6 ">
+                                               <h5><i class="fas fa-venus-mars"></i> <%= user.gender %></h5>
+                                             </div>
+                                             <div class="col-lg-6 ">
+                                               <h5><i class="fas fa-map-marker"></i> <%= user.distance %></h5>
+                                             </div>
+                                           </div>
+                                           <button type="button" id="<%= user.uuid %>" onclick="userLike(this.id)" class="btn btn-cyan btn-circle">
+                                             <i class="fas fa-thumbs-up"></i>
+                                           </button>
+                                           <button type="button" id="<%= user.uuid %>" onclick="userReport(this.id)"
+                                             class="btn btn-amber btn-circle"><i class="fas fa-flag"></i>
+                                           </button>
+                                           <button type="button" id="<%= user.uuid %>" onclick="userDislike(this.id)"
+                                             class="btn btn-pink btn-circle"><i class="fas fa-thumbs-down"></i></button>
+                                         </div>
+                                       </div>
+                                     </div>
+                               
+                               <% }) %>
+                               <% } else { %>
+                                <div class="alert alert-info">
+                                  <h6>No Users Liked</h6>
+                                </div>
+                               <% } %>
+                           </div>
+                    </div>
+                    <div class="tab-pane fade" id="dislikes" role="tabpanel" aria-labelledby="dislikes-tab">
+                        <h2>Dislikes</h2>
+                        <div class="row">
+                            <% if(typeof results.dislikes == 'object'){ %>
+                               <% results.dislikes.forEach((user) => { %>
+                                   <div class="col-lg-4 col-md-6 col-sm-12">
+                                       <div class="card card-cascade mt-3">
+                                         <div class="view view-cascade overlay">
+                                           <img class="card-img-top embed-responsive embed-responsive-16by9"
+                                           src="/assets/images/<%= ( typeof user.profilepicture != 'undefined') ?  user.profilepicture  : 'add.png' %>"              alt="Card image cap">
+                                           <a href="/users/view/<%= user.uuid %>" target="_blank">
+                                             <div class="mask rgba-white-slight"></div>
+                                           </a>
+                                         </div>
+                                         <div class="card-body card-body-cascade text-center">
+                                           <h5 class="card-title"><strong><%= user.username %></strong></h5>
+                                           <h6 class="font-weight-bold indigo-text py-2"><%= user.name %></h6>
+                                           <div class="row justify-content-center text-center mt-2">
+                                             <div class="col-6 ">
+                                               <h4><i class="fas fa-star"></i><%= user.fameRating %></h4>
+                                             </div>
+                                             <div class="col-6 ">
+                                               <h4><i class="fas fa-birthday-cake"></i> <%= user.age %></h4>
+                                             </div>
+                                           </div>
+                                           <div class="row justify-content-center text-center mt-2">
+                                             <div class="col-lg-6 ">
+                                               <h5><i class="fas fa-venus-mars"></i> <%= user.gender %></h5>
+                                             </div>
+                                             <div class="col-lg-6 ">
+                                               <h5><i class="fas fa-map-marker"></i> <%= user.distance %></h5>
+                                             </div>
+                                           </div>
+                                           <button type="button" id="<%= user.uuid %>" onclick="userLike(this.id)" class="btn btn-cyan btn-circle">
+                                             <i class="fas fa-thumbs-up"></i>
+                                           </button>
+                                           <button type="button" id="<%= user.uuid %>" onclick="userReport(this.id)"
+                                             class="btn btn-amber btn-circle"><i class="fas fa-flag"></i>
+                                           </button>
+                                           <button type="button" id="<%= user.uuid %>" onclick="userDislike(this.id)"
+                                             class="btn btn-pink btn-circle"><i class="fas fa-thumbs-down"></i></button>
+                                         </div>
+                                       </div>
+                                     </div>
+                               
+                               <% }) %>
+                               <% } else { %>
+                                <div class="alert alert-info">
+                                  <h6>No Users Disliked</h6>
+                                </div>
+                               <% } %>
+                           </div>
+                    </div>
+                    <div class="tab-pane fade " id="blocked" role="tabpanel" aria-labelledby="blocked-tab">
+                        <h2>Blocked</h2>
+                        <div class="row">
+                            <% if(typeof results.blocked == 'object'){ %>
+                               <% results.blocked.forEach((user) => { %>
+                                   <div class="col-lg-4 col-md-6 col-sm-12">
+                                       <div class="card card-cascade mt-3">
+                                         <div class="view view-cascade overlay">
+                                           <img class="card-img-top embed-responsive embed-responsive-16by9"
+                                           src="/assets/images/<%= ( typeof user.profilepicture != 'undefined') ?  user.profilepicture  : 'add.png' %>"              alt="Card image cap">
+                                           <a href="/users/view/<%= user.uuid %>" target="_blank">
+                                             <div class="mask rgba-white-slight"></div>
+                                           </a>
+                                         </div>
+                                         <div class="card-body card-body-cascade text-center">
+                                           <h5 class="card-title"><strong><%= user.username %></strong></h5>
+                                           <h6 class="font-weight-bold indigo-text py-2"><%= user.name %></h6>
+                                           <div class="row justify-content-center text-center mt-2">
+                                             <div class="col-6 ">
+                                               <h4><i class="fas fa-star"></i><%= user.fameRating %></h4>
+                                             </div>
+                                             <div class="col-6 ">
+                                               <h4><i class="fas fa-birthday-cake"></i> <%= user.age %></h4>
+                                             </div>
+                                           </div>
+                                           <div class="row justify-content-center text-center mt-2">
+                                             <div class="col-lg-6 ">
+                                               <h5><i class="fas fa-venus-mars"></i> <%= user.gender %></h5>
+                                             </div>
+                                             <div class="col-lg-6 ">
+                                               <h5><i class="fas fa-map-marker"></i> <%= user.distance %></h5>
+                                             </div>
+                                           </div>
+                                           <button type="button" id="<%= user.uuid %>" onclick="userLike(this.id)" class="btn btn-cyan btn-circle">
+                                             <i class="fas fa-thumbs-up"></i>
+                                           </button>
+                                           <button type="button" id="<%= user.uuid %>" onclick="userReport(this.id)"
+                                             class="btn btn-amber btn-circle"><i class="fas fa-flag"></i>
+                                           </button>
+                                           <button type="button" id="<%= user.uuid %>" onclick="userDislike(this.id)"
+                                             class="btn btn-pink btn-circle"><i class="fas fa-thumbs-down"></i></button>
+                                         </div>
+                                       </div>
+                                     </div>
+                               
+                               <% }) %>
+                           <% } else { %>
+                            <div class="alert alert-info">
+                              <h6>No Users Blocked</h6>
+                            </div>
+                            
+                           <% } %>
+                           </div>
+                    </div>
+                </div>
+
+    <!-- Modal like -->
+    <div class="modal fade" id="like" tabindex="-1" role="dialog" aria-labelledby="like" aria-hidden="true">
+
+      <!-- Add .modal-dialog-centered to .modal-dialog to vertically center the modal -->
+      <div class="modal-dialog modal-dialog-centered" role="document">
+
+
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title  text-center" id="exampleModalLongTitle">Information</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <b>Already liked</b>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- start modals -->
+    <!-- Modal like -->
+    <div class="modal fade" id="like" tabindex="-1" role="dialog" aria-labelledby="like" aria-hidden="true">
+
+      <!-- Add .modal-dialog-centered to .modal-dialog to vertically center the modal -->
+      <div class="modal-dialog modal-dialog-centered" role="document">
+
+
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title  text-center" id="exampleModalLongTitle">Information</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <b id="likeError"></b>
+            <b id="likeStatus"></b>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Modal dislike-->
+    <div class="modal fade" id="dislike" tabindex="-1" role="dialog" aria-labelledby="dislike" aria-hidden="true">
+
+      <!-- Add .modal-dialog-centered to .modal-dialog to vertically center the modal -->
+      <div class="modal-dialog modal-dialog-centered" role="document">
+
+
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title  text-center" id="exampleModalLongTitle">Information</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <b id="dislikeError"></b>
+            <b id="dislikeStatus"></b>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Modal report-->
+    <div class="modal fade" id="report" tabindex="-1" role="dialog" aria-labelledby="report" aria-hidden="true">
+
+      <!-- Add .modal-dialog-centered to .modal-dialog to vertically center the modal -->
+      <div class="modal-dialog modal-dialog-centered" role="document">
+
+
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title  text-center" id="exampleModalLongTitle">Information</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <b id="reportError"></b>
+            <b id="reportStatus"></b>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- end modals -->
+
+    </div>
+    <!-- /.container -->
+    <% } %>
+    <div class="container mt-5">
+      <div class="row justify-content-center">
+      <% if(typeof error_msg != 'undefined' && typeof error_code != 'undefined'){ %>
+        <h4 class="text-danger"><%= error_msg %></h4>
+        <div class="h-50 w-50">
+          <img class="img-fluid"src="/assets/images/<%= ( error_code == 404 ) ?  '404.gif'  : '400.png' %>" alt="Card image">
+        </div>
+        <% } %>
+      </div>
+    </div>
+    <%- include ('../partials/scripts.ejs') %>
+    <%- include ('../partials/socket.ejs') %>
+    <script src="/assets/js/activity.js"></script>
+    <%- include ('../partials/footer.ejs') %>
+    
+</body>
+
+</html>

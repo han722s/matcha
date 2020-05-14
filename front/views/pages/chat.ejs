@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<%- include ('../partials/head.ejs') %>
+<body>
+    <%- include ('../partials/navbar.ejs') %>
+    <!-- file changed march 12 -->
+    <div class="container pt-3">
+     <div class="row">  
+    <div class="col-sm-12 col-md-4 col-lg-4">
+        <div class="" id="status">
+                  
+        </div>
+    </div>
+     <!-- mesage box -->  
+    <div class="col-sm-12 col-md-8 col-lg-8 pt-3">
+        <div class="card">
+            <div id="messageBox" class="card-body messageBox">
+            </div>
+            </div>
+            <br>
+            <div class="row">
+                <div class="col-md-8 col-lg-8 col-sm-12">
+                    <textarea id="message" class="form-control"></textarea>
+                </div>
+                <div class="col-md-4 col-lg-4 col-sm-12 pt-2">
+                    <button class="btn btn-info btn-block" id="send">Send</button>
+                </div>
+            </div>
+            
+    </div>
+ <!-- file changed march 12 -->
+</div>
+</div> 
+<%- include ('../partials/scripts.ejs') %>
+<%- include ('../partials/socket.ejs') %>
+<script  src="/assets/js/chat.js"></script>
+<%- include ('../partials/footer.ejs') %>
+
+</body>
+
+</html>
+
+
+
+
+

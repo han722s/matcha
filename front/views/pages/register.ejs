@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<%- include ('../partials/head.ejs') %>
+​
+<body>
+   <div class="container">
+      <div class="row">
+         <div class="col-md-8 mx-auto mt-5">
+            <div class="card card-body  mt-5">
+               <% if(typeof  success !== 'undefined' ){ %>
+                  <div class="alert alert-success">
+                     <%= success %>
+                  </div>
+                  <% } %>
+                  <% if(typeof error != 'undefined'){ %>
+                     <div class="alert alert-danger">
+                        <%= error %>
+                     </div>
+                     <% } %>
+                  <!-- Default form register -->
+                  <form class="text-center  p-5" action="/register" method="POST">
+      
+                     <p class="h4 mb-4">Sign up</p>
+      
+                     <div class="form-row mb-4">
+                        <div class="col">
+                           <input type="text" class="form-control" placeholder="username" name="username">
+                        </div>
+                        <div class="col">
+                           <input type="text" class="form-control" placeholder="full name" name="name">
+                        </div>
+                     </div>
+      
+                     <!-- E-mail -->
+                     <div class="form-group">
+                        <input type="email" class="form-control" placeholder="Email" name="email">
+      
+                     </div>
+                     <div class="form-group">
+                        <input type="password" class="form-control" placeholder="Password" name="password">
+      
+                     </div>
+                     <!-- Password -->
+                     <small id="defaultRegisterFormPasswordHelpBlock" class="form-text text-muted mb-4">
+                        At least 7 characters with upercase and 1 digit and special character
+                     </small>
+                     <!-- confirm password -->
+                     <div class="form-group">
+                        <input type="password" class="form-control" placeholder="Confirm Password" name="confirmPassword">
+      
+                     </div>
+                     <!-- Sign up button -->
+                     <button class="btn purple-gradient my-4 btn-block" type="submit">Sign in</button>
+                     
+                  <!-- login -->
+                  <p>a member sign in ?
+                     <a href="/login">Login</a>
+                  </p>
+      
+                  </form>
+                  <!-- Default form register -->
+            </div>
+         </div>
+      </div>
+   </div>
+​
+   
+   <%- include ('../partials/scripts.ejs') %>
+   <%- include ('../partials/footer.ejs') %>
+</body>
+​
+</html>
