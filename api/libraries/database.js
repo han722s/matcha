@@ -243,6 +243,8 @@ const database = {
     else {
       result = await database.findStrict(uuid);
     }
+    if(!result)
+    return []
     let finalResult = [];
     if (args.location == true) {
       data.radius = data.radius * 1000
