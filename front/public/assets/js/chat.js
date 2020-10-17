@@ -2,6 +2,7 @@ var $sendButton = document.querySelector('#send')
 var $status = document.querySelector('#status')
 var $messageBox = document.querySelector('#messageBox')
 var $messageContent = document.querySelector('#message')
+var $chatRoom = document.querySelector('#chatRoom')
 var receiver = window.location.pathname.split('/')[3]
 
 function addZero(i) {
@@ -9,6 +10,9 @@ function addZero(i) {
       i = "0" + i;
     }
     return i;
+}
+function scrollDown(){
+  $chatRoom.scrollTo(0,  $chatRoom.scrollHeight)
 }
 
 
@@ -24,15 +28,12 @@ axios.post(`http://localhost:8080/users/messages/`+ receiver)
                                     <img class=\"img-fluid\" src=\"/assets/images/400.png\">"
   }
   if(response.data.userinfo)
-        $status.innerHTML = "<div class=\"view overlay \">\
-                        <img class=\"card-img-top\" style=\"height: 100%; width: 100%;\" src=\"/assets/images/"+response.data.userinfo[0].profilepicture+"\" alt=\"Card image cap\">\
-                        <a href=\""+window.location.origin+"/users/view/"+response.data.userinfo[0].uuid+"\">\
-                        <div class=\"mask rgba-white-slight\"></div>\
-                        </a>\
-                        </div>\
-                        <div class=\"card-body\">\
-                        <p class=\"card-title\"><strong>"+response.data.userinfo[0].username+"</strong></p>\
-                        </div>"
+        $status.innerHTML = "\
+        <div class=\"card-body text-center white-text\">\
+        <a class=\" white-text \" href=\""+window.location.origin+"/users/view/"+response.data.userinfo[0].uuid+"\">\
+        <h5 class=\"card-title animated fadeInLeft\"><strong>"+response.data.userinfo[0].username+"</strong></h5>\
+        </a>\
+        </div>"
     if(response.data.Code === 404){
       msgdiv = document.createElement('div')
       msgdiv.classList = "text-center red-text"
@@ -44,22 +45,45 @@ axios.post(`http://localhost:8080/users/messages/`+ receiver)
        response.data.result.forEach(function (message){
       if(message.receiver == receiver){
         msgdiv = document.createElement('div')
-        msgdiv.innerHTML = "<p class=\"text-right purple-text\">"+message.body +"<br><small class=\"text-right text-muted\"> on "+message.date.day+"/"+message.date.day+" at "+message.time.hour+":"+message.time.minute +"</small></p><hr>"
+        msgdiv.innerHTML = "<li class=\"d-flex justify-content-between mb-4\">\
+        <div class=\"mr-2 ml-0 z-depth-1\"></div>\
+        <div class=\"chat-body white p-3 ml-2 z-depth-1\">\
+          <div class=\"header\">\
+            <small class=\"pull-right text-muted\"><i class=\"far fa-clock\"></i> on "+message.date.day+"/"+message.date.month+" at "+message.time.hour+":"+message.time.minute +"</small>\
+          </div>\
+          <hr class=\"w-100\">\
+          <p class=\"mb-0\">\
+          "+ message.body + "\
+          </p>\
+        </div>\
+        </li>"
         $messageBox.appendChild(msgdiv)
       }
       else{
         msgdiv = document.createElement('div')
-        msgdiv.innerHTML = "<p class=\"text-left pink-text\">"+message.body +"<br><small class=\"text-muted\"> on "+message.date.day+"/"+message.date.day+" at "+message.time.hour+":"+message.time.minute +"</small></p><hr>"
+        msgdiv.innerHTML = "<li class=\"d-flex justify-content-between mb-4\">\
+        <div class=\"chat-body white p-3 z-depth-1\">\
+        <div class=\"header\">\
+        <small class=\"pull-right text-muted\"><i class=\"far fa-clock\"></i>  on "+message.date.day+"/"+message.date.month+" at "+message.time.hour+":"+message.time.minute +"</small>\
+        </div>\
+        <hr class=\"w-100\">\
+        <p class=\"mb-0\">\
+        "+message.body +"\
+        </p>\
+        </div>\
+        <div class=\"avatar rounded mr-0 ml-3 z-depth-1\"></div>\
+        </li>"
         $messageBox.appendChild(msgdiv)
       }
     })
+    scrollDown()
     }
 })
 
 /// checks user online status
 socket.on('users', function(users){
   online = users.connectedUsers.indexOf(receiver)
-  badge = (online === -1) ? "card ripe-malinka-gradient " : "card dusty-grass-gradient "
+  badge = (online === -1) ? "card ripe-malinka-gradient z-depth-0" : "card dusty-grass-gradient z-depth-0"
   $status.className = badge
 })
 
@@ -76,8 +100,20 @@ socket.on('incomingMessage', (data) => {
   var time = today.getHours() + ":" + addZero(today.getMinutes())
     if( username === data.receiver){
       msgdiv = document.createElement('div')
-      msgdiv.innerHTML = "<p class=\"text-left pink-text\">"+data.message +"<br><small class=\"text-muted\">"+time+"</small></p><hr>"
+      msgdiv.innerHTML = "<li class=\"d-flex animated fadeInLeft justify-content-between mb-4\">\
+      <div class=\"chat-body white p-3 z-depth-1\">\
+      <div class=\"header\">\
+      <small class=\"pull-right text-muted\"><i class=\"far fa-clock\"></i>"+time+"</small>\
+      </div>\
+      <hr class=\"w-100\">\
+      <p class=\"mb-0 \">\
+      "+data.message +"\
+      </p>\
+      </div>\
+      <div class=\"avatar rounded mr-0 ml-3 z-depth-1\"></div>\
+      </li>"
       $messageBox.appendChild(msgdiv)
+      scrollDown()
     }
 })
 
@@ -87,8 +123,21 @@ $sendButton.addEventListener('click', (e) => {
     var time = today.getHours() + ":" + addZero(today.getMinutes())
     data = {message: $messageContent.value, user: receiver}
     msgdiv = document.createElement('div')
-    msgdiv.innerHTML = "<p class=\"text-right purple-text\">"+$messageContent.value +"<br><small class=\"text-right text-muted\">"+ time +"</small></p><hr>"
+    msgdiv.innerHTML = "<li class=\"d-flex animated fadeInRight justify-content-between mb-4\">\
+    <div class=\"mr-2 ml-0 z-depth-1\"></div>\
+    <div class=\"chat-body white p-3 ml-2 z-depth-1\">\
+      <div class=\"header\">\
+        <small class=\"pull-right text-muted\"><i class=\"far fa-clock\"></i>"+ time +"</small>\
+      </div>\
+      <hr class=\"w-100\">\
+      <p class=\"mb-0\">\
+      "+$messageContent.value +"\
+      </p>\
+    </div>\
+    </li>"
     $messageBox.appendChild(msgdiv)
+    scrollDown()
+    $messageContent.value= ''
     axios.post(`http://localhost:8080/users/chat`,data)
 })
 

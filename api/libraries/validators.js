@@ -22,6 +22,7 @@ const validators = {
     const passwordRgex = new RegExp(/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-])/)
     const latitudeRegex = new RegExp(/^(\+|-)?(?:90(?:(?:\.0{1,6})?)|(?:[0-9]|[1-8][0-9])(?:(?:\.[0-9]{1,20})?))$/)
     const longitudeRegex = new RegExp(/^(\+|-)?(?:180(?:(?:\.0{1,6})?)|(?:[0-9]|[1-9][0-9]|1[0-7][0-9])(?:(?:\.[0-9]{1,20})?))$/)
+    const birthdateRegex = new RegExp(/^\d{2}\/\d{2}\/\d{4}/)
     const Body = Object.keys(data)
     const values = Object.values(data)
     const Allowed = ['orientation','password','gender','name','email','birthdate', 'location','username', 'bio', 'interests']
@@ -47,7 +48,10 @@ const validators = {
     if (args.birthdate == true)
         {
             console.log(data.birthdate)
-                    if(!validators.dateValidator(data.birthdate) || helpers.getAge(data.birthdate) < 18 || helpers.getAge(data.birthdate) >= 100 || data.birthdate === '' || data.birthdate == undefined)
+                    if(!validators.dateValidator(data.birthdate) 
+                    || helpers.getAge(data.birthdate) < 18 || helpers.getAge(data.birthdate) >= 100 
+                    || data.birthdate === '' || data.birthdate == undefined 
+                    || data.birthdate.length != 10 || !birthdateRegex.test(data.birthdate) || isNaN(Date.parse(data.birthdate)))
             throw new Error("Not a valid operation Birthdate")
         }
     if (args.gender == true)

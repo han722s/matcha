@@ -50,7 +50,7 @@
                     <div class="row">
                         <div class="col">
                             <input accept="image/*" onchange="displayImage(this)" type="file" id="pictureselect"
-                                name="profile" style="display:none;">
+                                name="profile" style="display:none;" required>
                         </div>
                     </div>
             </div>
@@ -74,13 +74,13 @@
                     </div>
                     <div class="card-body">
                                 <label>Gender</label>
-                                <select class="form-control" id="gender" name="gender">
+                                <select class="form-control" id="gender" name="gender" required>
                                     <option value="male">male</option>
                                     <option value="female">female</option>
                                 </select>
                                 <br>
                                 <label>Orientation</label>
-                                <select class="form-control" id="orientation" name="orientation">
+                                <select class="form-control" id="orientation" name="orientation" required>
                                     <option value="Bisexual">Bisexual</option>
                                     <option value="Heterosexual">Heterosexual</option>
                                     <option value="Homosexual">Homosexual</option>
@@ -88,17 +88,19 @@
                                 <br>
                                 <label>Birth Date</label>
                                 <input type="date" class="form-control" id="birthdate" placeholder="birth date"
-                                    name="birthdate">
+                                    name="birthdate" required>
+                                <small class="grey-text ">to modify use this format YYYY-MM-DD</small>
+                                <br>
                                 <br>
                                 <label for="location">Your location</label>
                                 <input type="text" class="form-control" id="location" name="location"
-                                    placeholder="Fill me out">
+                                    placeholder="Fill me out" required>
                                 <br>
                                 <label>Your bio</label>
-                                <textarea class="form-control" name="bio" id="bio" rows="3"></textarea>
+                                <textarea class="form-control" name="bio" id="bio" rows="3" required></textarea>
                                 <br>
                                 <input type="text" class="form-control" id="interests" name="interests"
-                                    placeholder="movies-kittens-travel-sport"><br>
+                                    placeholder="movies-kittens-travel-sport" required><br>
                     </div>
                 </div>
             </div>

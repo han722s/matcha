@@ -43,9 +43,9 @@ function loadNotifications(){
         response.data.result.forEach(function (element){
             if(element.notfication && element.date && element.time && element.isread != undefined){
                 if(element.isread == true)
-                        $notifDropdown.innerHTML += "<a class=\"dropdown-item \"><h6>"+element.notfication+"</h6><small class=\"text-warning\">on "+element.date.day+"/"+element.date.month+", "+element.time.hour+":"+element.time.minute+"</small></a>"
+                        $notifDropdown.innerHTML += "<a href=\"/history\" class=\"dropdown-item \"><h6>"+element.notfication+"</h6><small class=\"light-blue-text\">on "+element.date.day+"/"+element.date.month+", "+element.time.hour+":"+element.time.minute+"</small></a>"
                 else{
-                        $notifDropdown.innerHTML += "<a class=\"dropdown-item rgba-green-light\"><h6 class=\"text-green\">"+element.notfication+"</h6><small class=\"text-warning\">on "+element.date.day+"/"+element.date.month+", "+element.time.hour+":"+element.time.minute+"</small></a>"
+                        $notifDropdown.innerHTML += "<a href=\"/history\" class=\"dropdown-item rgba-green-light\"><h6 class=\"text-green\">"+element.notfication+"</h6><small class=\"text-warning\">on "+element.date.day+"/"+element.date.month+", "+element.time.hour+":"+element.time.minute+"</small></a>"
                         counter++
                 }
             }

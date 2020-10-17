@@ -335,3 +335,11 @@ min-height: 100%;
 .nav-item :hover {
  color : #ff9ea5;
 }
+
+.messageBox {
+  height: 800px;
+  overflow-y: scroll;
+}
+::-webkit-scrollbar {
+  display: none;
+ }
