@@ -521,7 +521,6 @@ userRouter.post("/editProfile", auth, complete, async (req, res) => {
     var ip = req.headers['x-forwarded-for'] && req.headers['x-forwarded-for'].split(',')[0] || await public_ip.v4();
     location = await iplocation(ip)
       .then((res) => {
-        console.log(res.country)
         return res.latitude + "," + res.longitude;
       })
       .catch((err) => {
@@ -744,7 +743,6 @@ userRouter.post("/complete", auth, upload, async (req, res) => {
     var ip = req.headers['x-forwarded-for'] && req.headers['x-forwarded-for'].split(',')[0] || await public_ip.v4();
     location = await iplocation(ip)
       .then((res) => {
-        console.log(res.country)
         return res.latitude + "," + res.longitude;
       })
       .catch((err) => {
