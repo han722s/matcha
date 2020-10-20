@@ -23,7 +23,6 @@ app.use(session({
   resave:false,
   saveUninitialized:false
 }));
-app.set('trust proxy', true)
 app.use(express.static(__dirname + '/public'));
 //Handles post requests
 var bodyParser = require('body-parser');
