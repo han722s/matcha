@@ -17,7 +17,7 @@ function delay(t, v) {
  }
 
 function readNotification(){
-    axios.post(`http://localhost:8080/users/read`)
+    axios.post(`${window.location.origin}/users/read`)
     .then(function(response){
       if(response.data.Code === 200)
         return delay(3000).then(function(){
@@ -31,7 +31,7 @@ $notifLink.addEventListener('click', function(e){
 
 
 function loadNotifications(){
-    axios.post(`http://localhost:8080/users/notifications`)
+    axios.post(`${window.location.origin}/users/notifications`)
     .then(function(response){
     $notifDropdown.innerHTML =''
     counter = 0
@@ -55,7 +55,7 @@ function loadNotifications(){
     })
 }
 
-axios.post(`http://localhost:8080/users/conversations`)
+axios.post(`${window.location.origin}/users/conversations`)
 .then(function(response){
     if(!response.data)
         $chatDropdown.innerHTML = "<p class=\"text-danger\">Try again later</p>"

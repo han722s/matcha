@@ -18,7 +18,7 @@ function scrollDown(){
 
 
 
-axios.post(`http://localhost:8080/users/messages/`+ receiver)
+axios.post(`${window.location.origin}/users/messages/`+ receiver)
 .then(function (response){
   if(response.data.Code == 400){
     $messageBox.classList = "red-text"
@@ -138,6 +138,6 @@ $sendButton.addEventListener('click', (e) => {
     $messageBox.appendChild(msgdiv)
     scrollDown()
     $messageContent.value= ''
-    axios.post(`http://localhost:8080/users/chat`,data)
+    axios.post(`${window.location.origin}/users/chat`,data)
 })
 
