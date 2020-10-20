@@ -1,8 +1,8 @@
 const express = require("express");
 const userRouter = new express.Router();
 const axios = require("axios").default;
-var public_ip = require("public-ip");
-const iplocation = require("iplocation").default;
+const public_ip = require("public-ip");
+const iplocation = require("node-iplocate");
 const conf = require("../config");
 const auth = require("../middleware/auth");
 const complete = require("../middleware/complete");
@@ -518,9 +518,10 @@ userRouter.get("/editProfile", auth, complete, async (req, res) => {
 userRouter.post("/editProfile", auth, complete, async (req, res) => {
   if (req.body.location != undefined && req.body.location == "") {
     var location;
-    var ip = await public_ip.v4();
+    var ip = req.headers['x-forwarded-for'] && req.headers['x-forwarded-for'].split(',')[0] || await public_ip.v4();
     location = await iplocation(ip)
       .then((res) => {
+        console.log(res.country)
         return res.latitude + "," + res.longitude;
       })
       .catch((err) => {
@@ -737,9 +738,10 @@ userRouter.post("/complete", auth, upload, async (req, res) => {
     return res.render("pages/complete", { message: "select birthdate" });
   if (req.body.location != undefined && req.body.location == "") {
     var location;
-    var ip = await public_ip.v4();
+    var ip = req.headers['x-forwarded-for'] && req.headers['x-forwarded-for'].split(',')[0] || await public_ip.v4();
     location = await iplocation(ip)
       .then((res) => {
+        console.log(res.country)
         return res.latitude + "," + res.longitude;
       })
       .catch((err) => {
