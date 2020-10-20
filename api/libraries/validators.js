@@ -47,7 +47,6 @@ const validators = {
     }
     if (args.birthdate == true)
         {
-            console.log(data.birthdate)
                     if(!validators.dateValidator(data.birthdate) 
                     || helpers.getAge(data.birthdate) < 18 || helpers.getAge(data.birthdate) >= 100 
                     || data.birthdate === '' || data.birthdate == undefined 
@@ -96,7 +95,6 @@ const validators = {
     if(args.interests == true){
         let tags = data.interests.split("-")
         let newTags = []
-        console.log(tags)
         tags.forEach(element => {
             element = element.trim()
             element = element.toLowerCase()

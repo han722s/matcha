@@ -59,7 +59,6 @@ io.on('connect', socket => {
           var user = JSON.parse(userCookie.user)
           if(users.indexOf(user.username) == -1){
               users.push(user.username);
-              console.log(`user logged: ${user.uuid}`)
               io.emit('users', {connectedUsers: users});
           }
       }
@@ -67,13 +66,11 @@ io.on('connect', socket => {
           if(userCookie.user){
               if(users.indexOf(user.username) != -1){
                   users.splice(users.indexOf(user.username), 1);
-                  console.log(`user disconected: ${user.uuid}`)
                   io.emit('users', {connectedUsers: users});
               }
           }
       })
       socket.on('check', function(data){
-        console.log("checked")
         io.emit('users', {connectedUsers: users});
     })
   }

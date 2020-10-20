@@ -28,8 +28,8 @@ $( function() {
 function getLocation() {
 	if (navigator.geolocation) {
 	  navigator.geolocation.watchPosition(showPosition);
-	} else { 
-	   console.log("Geolocation is not supported by this browser.");
+	} else {
+    alert("Geolocation is not supported by this browser.")
 	}
   }
   getLocation();

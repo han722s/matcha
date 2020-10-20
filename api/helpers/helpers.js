@@ -80,9 +80,7 @@ const helper = {
     },
     
     getFame : async (data) => {
-        console.log(data)
         let fame = ((((data.views + data.likes) - (data.reports + data.blocks)) / data.users) * 5).toFixed(1)
-        console.log(fame)
         if(fame < 0) 
             return String(0)
         return String(fame)
@@ -105,7 +103,6 @@ const helper = {
             const distance = geolib.getDistance(
                 {latitude: requester.location[0], longitude: requester.location[1]},
                 { latitude: user.location[0], longitude: user.location[1]})
-                // console.log(distance)
               if(distance > 1000)
               user.distance = ~~(distance / 1000) + " Km away "
               else

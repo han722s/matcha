@@ -23,7 +23,7 @@ Usercontroller.post("/users", async (req, res) => {
     var result = await UserModel.userAdd(info);
     res.status(201).send({ Code: 201, result });
   } catch (e) {
-    console.log(e);
+    
     res.status(400).send({
       Code: 400,
       Error: e.message
@@ -40,7 +40,7 @@ Usercontroller.post('/users/reset', async (req, res) =>{
     res.status(200).send({ Code: 200, result});
   }
   catch(e){
-  console.log(e);
+  
     res.status(400).send({
       Code: 400,
       Error: e.message
@@ -57,7 +57,7 @@ Usercontroller.patch('/users/reset', async (req, res) => {
     res.status(200).send({ Code: 200, result});
   }
   catch(e){
-  console.log(e);
+  
     res.status(400).send({
       Code: 400,
       Error: e.message
@@ -72,7 +72,7 @@ Usercontroller.post('/users/activate', async (req, res) => {
     res.status(200).send({ Code: 200, result: "Account Activated successfully"});
   }
   catch(e){
-    console.log(e);
+    
       res.status(400).send({
         Code: 400,
         Error: e.message
@@ -86,7 +86,7 @@ Usercontroller.get("/users", auth, async (req, res) => {
     var users = await UserModel.userGet();
     res.status(200).send({ Code: 200, users });
   } catch (e) {
-    console.log(e);
+    
     res.status(404).send({
       Code: 404,
       Error: e.message
@@ -100,7 +100,7 @@ Usercontroller.get("/users/me", auth, async (req, res) => {
     user = await helper.getPublicProfile(req.user);
     res.status(200).send({ Code: 200,user});
   } catch (e) {
-    console.log(e);
+    
     res.status(400).send({
       Code: 400,
       Error: e.message
@@ -119,7 +119,7 @@ Usercontroller.get("/users/token/:token", async (req, res) => {
     return res.status(200).send({ Code: 200, result});
   } 
   catch (e) {
-    console.log(e);
+    
     res.status(400).send({
       Code: 400,
       Error: e.message
@@ -139,7 +139,7 @@ Usercontroller.delete("/users/me", auth, async (req, res) => {
       .status(200)
       .send({ Code: 200, Message: "Account Deleted Successfully" });
   } catch (e) {
-    console.log(e);
+    
     res.status(400).send({
       Code: 400,
       Error: e.message
@@ -149,7 +149,6 @@ Usercontroller.delete("/users/me", auth, async (req, res) => {
 
 Usercontroller.patch("/users/me", auth, async (req, res) => {
   try {
-    //console.log(req.user[0])
     const args = helper.ReqtoArgs({ ...req.body });
     const validated = await validators.userValidator(req.body, args);
     result = await UserModel.userUpdate(req.user[0].uuid, validated);
@@ -157,7 +156,7 @@ Usercontroller.patch("/users/me", auth, async (req, res) => {
       res.status(200).send({ Code: 200, Message: "Nothing has been Updated" });
     res.status(200).send({ Code: 200, args });
   } catch (e) {
-    console.log(e);
+    
     delete req.user[0].password
     delete req.user[0].jwt
     delete req.user[0].token
@@ -186,7 +185,7 @@ Usercontroller.patch('/users/password', auth, async (req,res)=>{
     if(result.summary.counters._stats.propertiesSet == 1)
       res.status(200).send({ Code: 200, Message: "Password Changed successfully"});
   } catch (e) {
-    console.log(e);
+    
     res.status(400).send({
       Code: 400,
       Error: e.message
@@ -207,7 +206,7 @@ Usercontroller.post("/users/login", async (req, res) => {
     user = await helper.getPublicProfile(result);
     res.status(200).send({ Code: 200, user, jwt });
   } catch (e) {
-    console.log(e);
+    
     res.status(400).send({
       Code: 400,
       Error: e.message
@@ -223,7 +222,7 @@ Usercontroller.post("/users/logout", auth, async (req, res) => {
       .status(200)
       .send({ Code: 200, Message: `Good Bye ${req.user[0].name} !` });
   } catch (e) {
-    console.log(e);
+    
     res.status(400).send({
       Code: 400,
       Error: e.message
@@ -239,7 +238,7 @@ Usercontroller.post("/users/logoutall", auth, async (req, res) => {
       .status(200)
       .send({ Code: 200, Message: `Good Bye ${req.user[0].name} !` });
   } catch (e) {
-    console.log(e);
+    
     res.status(400).send({
       Code: 400,
       Error: e.message
@@ -261,7 +260,7 @@ Usercontroller.get("/users/search", auth, async (req, res) => {
       return res.status(404).send({ Code: 404, Error: "no user(s) found !" });
     res.status(200).send({ Code: 200, users: await helper.organiseUsers(req.user[0],users)});
   } catch (e) {
-    console.log(e);
+    
     res.status(400).send({
       Code: 400,
       Error: e.message
@@ -273,7 +272,6 @@ Usercontroller.get("/users/search", auth, async (req, res) => {
 // user filter by gender age or orientation 
 Usercontroller.get("/users/filter", auth, async (req, res) => {
   try {
-    console.log(req.url)
     const args = helper.ReqtoArgs({ ...req.query });
     const validated = await validators.searchValidator(req.query, args)
     var result = await UserModel.userFilter(validated, args, req.user[0].location, req.user[0].uuid)
@@ -283,7 +281,7 @@ Usercontroller.get("/users/filter", auth, async (req, res) => {
     res.status(200).send({ Code: 200, users });
 
   } catch (e) {
-    console.log(e);
+    
     res.status(400).send({
       Code: 400,
       Error: e.message
@@ -305,7 +303,7 @@ Usercontroller.post("/users/picture/:id", auth, async (req, res) => {
     res.status(200).send({ Code: 200, Picture: req.params.id})
   }
   catch (e){
-    console.log(e);
+    
     res.status(400).send({
       Code: 400,
       Error: e.message
@@ -325,7 +323,7 @@ Usercontroller.delete("/users/picture/:id", auth, async (req, res) => {
       throw new Error("Bad Request")
     res.status(200).send({ Code: 200, deleted: req.params.id});
   } catch (e) {
-    console.log(e);
+    
     res.status(400).send({
       Code: 400,
       Error: e.message
@@ -344,7 +342,7 @@ Usercontroller.post("/users/view/:id", auth, async (req, res) => {
     result.uuid = req.params.id
     res.status(200).send({ Code: 200, result});
   } catch (e) {
-    console.log(e);
+    
     res.status(400).send({
       Code: 400,
       Error: e.message
@@ -361,7 +359,7 @@ Usercontroller.post("/users/like/:id", auth, async (req, res) => {
     if (!result) throw new Error("Bad request");
     res.status(200).send({ Code: 200, Message: "Liked !" });
   } catch (e) {
-    console.log(e);
+    
     res.status(400).send({
       Code: 400,
       Error: e.message
@@ -377,7 +375,7 @@ Usercontroller.post("/users/dislike/:id", auth, async (req, res) => {
     if (!result) throw new Error("Bad request");
     res.status(200).send({ Code: 200, Message: "Disliked !" });
   } catch (e) {
-    console.log(e);
+    
     res.status(400).send({
       Code: 400,
       Error: e.message
@@ -393,7 +391,7 @@ Usercontroller.post("/users/block/:id", auth, async (req, res) => {
     if (!result) throw new Error("Bad request");
     res.status(200).send({ Code: 200, Message: "Blocked !" });
   } catch (e) {
-    console.log(e);
+    
     res.status(400).send({
       Code: 400,
       Error: e.message
@@ -409,7 +407,7 @@ Usercontroller.post("/users/unblock/:id", auth, async (req, res) => {
     if (!result) throw new Error("Bad request");
     res.status(200).send({ Code: 200, Message: "Unblocked !" });
   } catch (e) {
-    console.log(e);
+    
     res.status(400).send({
       Code: 400,
       Error: e.message
@@ -426,7 +424,7 @@ Usercontroller.post("/users/report/:id", auth, async (req, res) => {
     if (!result) throw new Error("Bad request");
     res.status(200).send({ Code: 200, Message: "reported !" });
   } catch (e) {
-    console.log(e);
+    
     res.status(400).send({
       Code: 400,
       Error: e.message
@@ -440,7 +438,7 @@ Usercontroller.get("/users/likes", auth, async (req, res) => {
     if (!result) return res.status(404).send({ Code: 404, Message: "No user(s) Found !"});
     res.status(200).send({ Code: 200, users: await helper.organiseUsers(req.user[0],result)});
   } catch (e) {
-    console.log(e);
+    
     res.status(400).send({
       Code: 400,
       Error: e.message
@@ -453,7 +451,7 @@ Usercontroller.get("/users/blocked", auth, async (req, res) => {
     if (!result) return res.status(404).send({ Code: 404, Message: "No user(s) Found !"});
     res.status(200).send({ Code: 200, users: await helper.organiseUsers(req.user[0],result)});
   } catch (e) {
-    console.log(e);
+    
     res.status(400).send({
       Code: 400,
       Error: e.message
@@ -466,7 +464,7 @@ Usercontroller.get("/users/dislikes", auth, async (req, res) => {
     if (!result) return res.status(404).send({ Code: 404, Message: "No user(s) Found !"});
     res.status(200).send({ Code: 200, users: await helper.organiseUsers(req.user[0],result)});
   } catch (e) {
-    console.log(e);
+    
     res.status(400).send({
       Code: 400,
       Error: e.message
@@ -480,7 +478,7 @@ Usercontroller.get("/users/views", auth, async (req, res) => {
     if (!result) return res.status(404).send({ Code: 404, Message: "No user(s) Found !"});
     res.status(200).send({ Code: 200, users: await helper.organiseUsers(req.user[0],result)});
   } catch (e) {
-    console.log(e);
+    
     res.status(400).send({
       Code: 400,
       Error: e.message
@@ -497,7 +495,7 @@ Usercontroller.get("/users/notifications", auth, async (req, res) => {
     if (result.length == 0) return res.status(404).send({ Code: 404, Message: "No Notifications for now !"});
     res.status(200).send({ Code: 200, result});
   } catch (e) {
-    console.log(e);
+    
     res.status(400).send({
       Code: 400,
       Error: e.message
@@ -511,7 +509,7 @@ Usercontroller.post("/users/notification/read", auth, async (req, res) => {
     if (!result) return res.status(400).send({ Code: 400, Message: "Something Went Wrong"});
     res.status(200).send({ Code: 200, Message: "All done"});
   } catch (e) {
-    console.log(e);
+    
     res.status(400).send({
       Code: 400,
       Error: e.message
@@ -526,7 +524,7 @@ Usercontroller.get("/users/chat", auth, async (req, res) => {
     if (result.length == 0) return res.status(404).send({ Code: 404, Message: "No Conversations Yet !"});
     res.status(200).send({ Code: 200, result});
   } catch (e) {
-    console.log(e);
+    
     res.status(400).send({
       Code: 400,
       Error: e.message
@@ -543,7 +541,7 @@ Usercontroller.get("/users/conversation/:username", auth, async (req, res) => {
     
     res.status(200).send({ Code: 200, result, userinfo: await helper.organiseUsers(req.user[0],userinfo)});
   } catch (e) {
-    console.log(e);
+    
     res.status(400).send({
       Code: 400,
       Error: e.message
@@ -557,7 +555,7 @@ Usercontroller.post("/users/send/:username", auth, async (req, res) => {
     const result = await UserModel.userSendMessage(req.user[0].username, req.params.username, message)
     res.status(200).send({ Code: 200, receiver: req.params.username, result});
   } catch (e) {
-    console.log(e);
+    
     res.status(400).send({
       Code: 400,
       Error: e.message
@@ -572,7 +570,7 @@ Usercontroller.get("/users/activity", auth, async (req, res) => {
     if (!results) return res.status(404).send({ Code: 404, Message: "No activity !"});
     res.status(200).send({ Code: 200, results});
   } catch (e) {
-    console.log(e);
+    
     res.status(400).send({
       Code: 400,
       Error: e.message
@@ -586,7 +584,7 @@ Usercontroller.get("/users/fame", auth, async (req, res) => {
     if (!results) return res.status(404).send({ Code: 404, Message: "No interaction with your profile yet!"});
     res.status(200).send({ Code: 200, results});
   } catch (e) {
-    console.log(e);
+    
     res.status(400).send({
       Code: 400,
       Error: e.message
@@ -602,7 +600,7 @@ Usercontroller.get("/users/fame", auth, async (req, res) => {
 //     res.send(result)
 //   }
 //   catch (e) {
-//     console.log(e);
+//     
 //     res.status(400).send({
 //       Code: 400,
 //       Error: e.message

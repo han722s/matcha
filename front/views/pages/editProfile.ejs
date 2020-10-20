@@ -15,7 +15,7 @@
                     <i class="fas fa-frown"></i> <%= error %>
                 </div>
             <% }%>
-        <% if(typeof userInfo != 'undefined' && userInfo.user.profilepicture && userInfo.user.name && userInfo.user.email && userInfo.user.username && userInfo.user.gender && userInfo.user.orientation && userInfo.user.birthdate &&  userInfo.user.location && userInfo.user.bio && userInfo.user.pictures){ %>      
+        <% if(userInfo && typeof userInfo != 'undefined' && userInfo.user && userInfo.user.profilepicture && userInfo.user.name && userInfo.user.email && userInfo.user.username && userInfo.user.gender && userInfo.user.orientation && userInfo.user.birthdate &&  userInfo.user.location && userInfo.user.bio && userInfo.user.pictures){ %>      
         <div class="row">
             <div class="col-lg-3  col-sm-12 col-xs-12 mt-5">
                 <div class="card text-center">

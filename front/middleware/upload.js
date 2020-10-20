@@ -29,7 +29,6 @@ const upload = multer({
 
 const uploadFile = async (req, res, next)=>{
     upload(req, res, function(err) {
-      console.log(req.file)
     if (req.fileValidationError) {
         req.fileError = req.fileValidationError
         // return res.redirect('/editProfile?error=' + req.fileValidationError)

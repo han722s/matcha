@@ -246,12 +246,10 @@ userRouter.post(
     axios
       .get(`${api}/users/conversation/${req.params.username}`)
       .then(function (response) {
-        // console.log(response.data)
-        //// response.data
+
         res.send(response.data);
       })
       .catch(function (error) {
-        // console.log(error.response.data)
         if (!error.response)
           return res.send({
             error: "Server down check again later...",
@@ -298,7 +296,6 @@ userRouter.get("/users/chat/:username", auth, complete, async (req, res) => {
 ///error check done
 // browsing
 userRouter.get("/", auth, complete, async (req, res) => {
-  console.log(req.cookies.jwt);
   axios.defaults.headers.common["Authorization"] = "Bearer " + req.cookies.jwt;
   let data = {
     gender: "",
@@ -338,7 +335,7 @@ userRouter.get("/", auth, complete, async (req, res) => {
       }
       if (user.orientation == "Bisexual") delete data.gender;
       data.strict = false;
-      console.log(data);
+   
       axios
         .get(`${api}/users/filter`, { params: data })
         .then((response) => {
@@ -492,7 +489,7 @@ userRouter.get("/editProfile", auth, complete, async (req, res) => {
   axios
     .get(`${api}/users/me`)
     .then((response) => {
-      //console.log(response)
+
       let user = response.data.user;
       var date = user.birthdate.split("/");
       user.birthdate = date[2] + "-" + date[0] + "-" + date[1];
@@ -662,7 +659,6 @@ userRouter.get("/logout", auth, async (req, res) => {
     })
     .catch((error) => {
       if (error.response.status == 401) return res.redirect("/login");
-      console.log(e.response);
     });
 });
 ////////////////////////// POSTS
@@ -851,7 +847,7 @@ userRouter.post("/users/like", auth, complete, async (req, res) => {
 });
 //dislike user
 userRouter.post("/users/dislike", auth, complete, async (req, res) => {
-  console.log(req.body);
+
   axios.defaults.headers.common["Authorization"] = "Bearer " + req.cookies.jwt;
   axios
     .post(`${api}/users/dislike/${req.body.uuid}`, {
@@ -876,7 +872,7 @@ userRouter.post("/users/dislike", auth, complete, async (req, res) => {
 });
 //block user
 userRouter.post("/users/block", auth, complete, async (req, res) => {
-  console.log(req.body);
+
   axios.defaults.headers.common["Authorization"] = "Bearer " + req.cookies.jwt;
   axios
     .post(`${api}/users/block/${req.body.uuid}`, {
@@ -907,7 +903,6 @@ userRouter.post("/users/block", auth, complete, async (req, res) => {
 
 //unblock user
 userRouter.post("/users/unblock", auth, complete, async (req, res) => {
-  console.log(req.body);
   axios.defaults.headers.common["Authorization"] = "Bearer " + req.cookies.jwt;
   axios
     .post(`${api}/users/unblock/${req.body.uuid}`, {

@@ -35,7 +35,7 @@ const database = {
       });
       return resultsArray;
     } catch (e) {
-      console.log(e);
+      
       throw new Error(e.message);
     }
   },
@@ -54,7 +54,7 @@ const database = {
       });
       return resultsArray;
     } catch (e) {
-      console.log(e);
+      
       throw new Error(e.message);
     }
   },
@@ -77,7 +77,7 @@ const database = {
       });
       return resultsArray;
     } catch (e) {
-      console.log(e);
+      
       throw new Error(e.message);
     }
   },
@@ -101,7 +101,7 @@ const database = {
       if (resultsArray.length >= 1) return resultsArray;
       return false;
     } catch (e) {
-      console.log(e);
+      
       throw new Error(e.message);
     }
   },
@@ -118,7 +118,7 @@ const database = {
       if (resultsArray.length >= 1) return resultsArray;
       return false;
     } catch (e) {
-      console.log(e);
+      
       throw new Error(e.message);
     }
   },
@@ -248,7 +248,6 @@ const database = {
     let finalResult = [];
     if (args.location == true) {
       data.radius = data.radius * 1000
-      // console.log(data.radius)
       result.forEach(element => {
         if (
           data.coordinates[0] == undefined ||
@@ -294,7 +293,7 @@ const database = {
       session.close();
       return result;
     } catch (e) {
-      console.log(e);
+      
       throw new Error(e.message);
     }
   },
@@ -316,7 +315,7 @@ const database = {
       session.close();
       return result;
     } catch (e) {
-      console.log(e);
+      
       throw new Error(e.message);
     }
   },
@@ -346,7 +345,7 @@ const database = {
       }
       return false;
     } catch (e) {
-      console.log(e);
+      
       throw new Error(e.message);
     }
   },
@@ -369,7 +368,7 @@ const database = {
       }
       return false;
     } catch (e) {
-      console.log(e);
+      
       throw new Error(e.message);
     }
   },
@@ -388,7 +387,7 @@ const database = {
       session.close();
       return resultsArray;
     } catch (e) {
-      console.log(e);
+      
       throw new Error(e.message);
     }
   },
@@ -399,7 +398,6 @@ const database = {
     const count = await session.run(cypher, {
       uuidParam: uuid
     });
-    console.log(count.records[0]._fields[0]);
     return count.records[0]._fields[0] === 1 ? true : false;
   },
   /////////////////////////////////////////////////////////////////////////// Chat
@@ -425,7 +423,7 @@ const database = {
       });
       return resultsArray;
     } catch (e) {
-      console.log(e);
+      
       throw new Error(e.message);
     }
   },
@@ -452,7 +450,7 @@ const database = {
       });
       return resultsArray.length > 0 ? true : false;
     } catch (e) {
-      console.log(e);
+      
       throw new Error(e.message);
     }
   },
@@ -478,7 +476,7 @@ const database = {
     });
     return resultsArray;
   } catch (e) {
-    console.log(e);
+    
     throw new Error(e.message);
   }
   },
@@ -501,7 +499,7 @@ const database = {
         return false
       return true;
     } catch (e) {
-      console.log(e);
+      
       throw new Error(e.message);
     }
   },
@@ -527,7 +525,7 @@ const database = {
       return false
     return true;
   } catch (e) {
-    console.log(e);
+    
     throw new Error(e.message);
   }
   },
@@ -551,7 +549,7 @@ const database = {
         return false
       return true;
     } catch (e) {
-      console.log(e);
+      
       throw new Error(e.message);
     }
   },
@@ -574,7 +572,7 @@ const database = {
       );
       return result.summary.counters._stats.nodesDeleted;
     } catch (e) {
-      console.log(e);
+      
       throw new Error(e.message);
     }
   },
@@ -595,7 +593,7 @@ const database = {
       if (result.summary.counters._stats.relationshipsDeleted > 0) return true;
       return false;
     } catch (e) {
-      console.log(e);
+      
       throw new Error(e.message);
     }
   },
@@ -661,7 +659,7 @@ const database = {
       session.close();
       return result;
     } catch (e) {
-      console.log(e);
+      
       throw new Error(e.message);
     }
   },
@@ -680,7 +678,7 @@ const database = {
       session.close();
       return result;
     } catch (e) {
-      console.log(e);
+      
       throw new Error(e.message);
     }
   },
@@ -709,7 +707,7 @@ const database = {
       session.close();
       return result;
     } catch (e) {
-      console.log(e);
+      
       throw new Error(e.message);
     }
   },
@@ -739,7 +737,7 @@ const database = {
       if (result.summary.counters._stats.propertiesSet > 0) return result;
       return false;
     } catch (e) {
-      console.log(e);
+      
       throw new Error(e.message);
     }
   },
@@ -775,7 +773,7 @@ const database = {
       session.close();
       return result;
     } catch (e) {
-      console.log(e);
+      
       throw new Error(e.message);
     }
   },
@@ -787,7 +785,6 @@ const database = {
     const total = users.length;
     let fame = await database.fameCypher(uuid, total);
     if (fame > 5) fame = "5";
-    console.log("Fame is => " + fame);
     if (userRating > 5) fame = "5";
     cypher =
       "MATCH (n:Person {uuid: $uuidParam}) SET n.fameRating = $fameParam";
@@ -812,7 +809,7 @@ const database = {
       if (result.summary.counters._stats.propertiesSet <= 0) return false;
       return true;
     } catch (e) {
-      console.log(e);
+      
       throw new Error(e.message);
     }
   },
@@ -839,7 +836,7 @@ const database = {
       return result
     }
     catch(e){
-      console.log(e);
+      
       throw new Error(e.message);
     }
   },
@@ -855,7 +852,7 @@ const database = {
       return result
     }
     catch(e){
-      console.log(e);
+      
       throw new Error(e.message);
     }
   },  
@@ -874,7 +871,7 @@ const database = {
       if (resultsArray.length >= 1) return resultsArray;
       return false;
     } catch (e) {
-      console.log(e);
+      
       throw new Error(e.message);
     }
   },
@@ -884,7 +881,6 @@ const database = {
     const cypher =
       "OPTIONAL MATCH (l:Person)-[:LIKES]->(:Person {uuid: $uuidParam}) OPTIONAL MATCH (v:Person)-[:VIEWED]->(:Person {uuid: $uuidParam}) OPTIONAL MATCH (r:Person)-[:REPORTED]->(:Person {uuid: $uuidParam}) OPTIONAL MATCH (b:Person)-[:BLOCKED]->(:Person {uuid: $uuidParam}) RETURN count(v), count(l), count(r), count(b)";
     const result = await session.run(cypher, { uuidParam: uuid });
-    console.log(cypher);
     session.close();
     const data = {
       views: result.records[0]._fields[0],
@@ -904,7 +900,7 @@ const database = {
       session.close();
       return result;
     } catch (e) {
-      console.log(e);
+      
       throw new Error(e.message);
     }
   }

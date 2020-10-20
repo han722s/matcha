@@ -20,7 +20,7 @@ const User = {
         return "User created successfully.";
       else throw new Error("Something went wrong.");
     } catch (e) {
-      console.log(e);
+      
       throw new Error(e.message);
     }
   },
@@ -34,7 +34,7 @@ const User = {
       });
       return resultsArray;
     } catch (e) {
-      console.log(e);
+      
       throw new Error(e.message);
     }
   },
@@ -48,7 +48,7 @@ const User = {
       });
       return resultsArray;
     } catch (e) {
-      console.log(e);
+      
       throw new Error(e.message);
     }
   },
@@ -59,7 +59,7 @@ const User = {
       throw new Error("Token invalid, check again");
     return result = true
     } catch (e) {
-      console.log(e);
+      
       throw new Error(e.message);
     }
   },
@@ -70,7 +70,7 @@ const User = {
       if (result == 1) return true;
       return false;
     } catch (e) {
-      console.log(e);
+      
       throw new Error(e.message);
     }
   },
@@ -78,11 +78,10 @@ const User = {
   userGetByEmail: async email => {
     try {
       const result = await database.findOne(email, "email");
-      console.log(result);
       if (!result) return false;
       return true;
     } catch (e) {
-      console.log(e);
+      
       throw new Error(e.message);
     }
   },
@@ -90,11 +89,10 @@ const User = {
   userGetByUsername: async username => {
     try {
       const result = await database.findOne(username, "username");
-      console.log(result);
       if (!result) return false;
       return true;
     } catch (e) {
-      console.log(e);
+      
       throw new Error(e.message);
     }
   },
@@ -113,12 +111,11 @@ const User = {
         setupDone = {setupDone: true}
       }
       params = Object.assign(params, setupDone)
-      // console.log(params)
       const result = await database.updateOne(uuid, params);
       if (result.summary.counters._stats.propertiesSet > 0) return true;
       return false;
     } catch (e) {
-      console.log(e);
+      
       throw new Error(e.message);
     }
   },
@@ -144,7 +141,7 @@ const User = {
       await database.updateLogTime(uuid)
       return result;
     } catch (e) {
-      console.log(e);
+      
       throw new Error(e.message);
     }
   },
@@ -155,7 +152,7 @@ const User = {
       if (!result) throw new Error("Something went wrong.");
       return result;
     } catch (e) {
-      console.log(e);
+      
       throw new Error(e.message);
     }
   },
@@ -166,7 +163,7 @@ const User = {
       if (!result) throw new Error("Something went wrong.");
       return result;
     } catch (e) {
-      console.log(e);
+      
       throw new Error(e.message);
     }
   },
@@ -185,7 +182,7 @@ const User = {
       const users = await database.findMany(who);
       return users;
     } catch (e) {
-      console.log(e);
+      
       throw new Error(e.message);
     }
   },
@@ -231,7 +228,7 @@ const User = {
       var sorted = fastsort(users).by(sortables);
       return sorted;
     } catch (e) {
-      console.log(e);
+      
       throw new Error(e.message);
     }
   },
@@ -244,7 +241,7 @@ const User = {
       if (result.summary.counters._stats.propertiesSet > 0) return true;
       return false;
     } catch (e) {
-      console.log(e);
+      
       throw new Error(e.message);
     }
   },
@@ -255,7 +252,7 @@ const User = {
       if (result.summary.counters._stats.propertiesSet > 0) return true;
       return false;
     } catch (e) {
-      console.log(e);
+      
       throw new Error(e.message);
     }
   },
@@ -319,7 +316,7 @@ const User = {
       }
       return true;
     } catch (e) {
-      console.log(e);
+      
       throw new Error(e.message);
     }
   },
@@ -348,7 +345,7 @@ const User = {
       if (!rating) throw new Error("Error Getting Fame Rating ");
       return true;
     } catch (e) {
-      console.log(e);
+      
       throw new Error(e.message);
     }
   },
@@ -369,7 +366,7 @@ const User = {
       if (!rating) throw new Error("Error Getting Fame Rating ");
       return true;
     } catch (e) {
-      console.log(e);
+      
       throw new Error(e.message);
     }
   },
@@ -384,7 +381,7 @@ const User = {
       if (!result) return false;
       return true;
     } catch (e) {
-      console.log(e);
+      
       throw new Error(e.message);
     }
   },
@@ -405,7 +402,7 @@ const User = {
       if (!rating) throw new Error("Error Getting Fame Rating ");
       return true;
     } catch (e) {
-      console.log(e);
+      
       throw new Error(e.message);
     }
   },
@@ -415,7 +412,7 @@ const User = {
       const users = await database.findManyByRelation(uuid, "LIKES");
       return users;
     } catch (e) {
-      console.log(e);
+      
       throw new Error(e.message);
     }
   },
@@ -425,7 +422,7 @@ const User = {
       const users = await database.findManyByRelation(uuid, "BLOCKED");
       return users;
     } catch (e) {
-      console.log(e);
+      
       throw new Error(e.message);
     }
   },
@@ -435,7 +432,7 @@ const User = {
       const users = await database.findManyByRelation(uuid, "DISLIKES");
       return users;
     } catch (e) {
-      console.log(e);
+      
       throw new Error(e.message);
     }
   },
@@ -444,7 +441,7 @@ const User = {
       const users = await database.findManyByRelation(uuid, "VIEWED");
       return users;
     } catch (e) {
-      console.log(e);
+      
       throw new Error(e.message);
     }
   }
@@ -454,7 +451,7 @@ const User = {
       const result = await database.findNotifications(uuid)
       return result
     } catch (e) {
-      console.log(e);
+      
       throw new Error(e.message);
     }
   },
@@ -464,7 +461,7 @@ const User = {
       const result = await database.updateReadNotification(uuid)
       return result
     } catch (e) {
-      console.log(e);
+      
       throw new Error(e.message);
     }
   },
@@ -474,7 +471,7 @@ const User = {
       const result = await database.getUserChats(username)
       return result
     } catch (e) {
-      console.log(e);
+      
       throw new Error(e.message);
     }
   },
@@ -484,7 +481,7 @@ const User = {
       const result = await database.getChatConversation(usernameA, usernameB)
       return result
     } catch (e) {
-      console.log(e);
+      
       throw new Error(e.message);
     }
   },
@@ -495,7 +492,7 @@ const User = {
       return result
     }
     catch (e){
-      console.log(e);
+      
       throw new Error(e.message);
     }
   },
@@ -522,7 +519,7 @@ const User = {
       return result
     }
     catch (e){
-      console.log(e);
+      
       throw new Error(e.message);
     }
   },
@@ -543,7 +540,7 @@ const User = {
       return result
     }
     catch (e){
-      console.log(e);
+      
       throw new Error(e.message);
     }
   },
@@ -556,7 +553,7 @@ const User = {
       notify = await database.insertNotification(usernameB, `${usernameA} has sent you a message`)
       return result
     } catch (e) {
-      console.log(e);
+      
       throw new Error(e.message);
     }
   },
@@ -617,7 +614,6 @@ const User = {
     try {
       let rawdata = fs.readFileSync('generated.json');
       let users = JSON.parse(rawdata);
-      // console.log(users.length);
       param = {
         props: users
       };
@@ -625,7 +621,7 @@ const User = {
       const result = await database.testCypher(cypher, param);
       return result;
     } catch (e) {
-      console.log(e);
+      
       throw new Error(e.message);
     }
   }

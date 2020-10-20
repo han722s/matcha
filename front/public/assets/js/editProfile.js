@@ -3,7 +3,7 @@ function getLocation() {
 	if (navigator.geolocation) {
 	  navigator.geolocation.watchPosition(showPosition);
 	} else { 
-	   console.log("Geolocation is not supported by this browser.");
+	   alert("Geolocation is not supported by this browser.");
 	}
   }
   getLocation();
@@ -104,8 +104,7 @@ function deletePic(picture)
 
     })
     .catch(function(error){
-        console.log(error.response.status)
-        console.log(error)
+		return
     })
 }
 
