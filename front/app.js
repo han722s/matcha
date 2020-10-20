@@ -43,6 +43,7 @@ app.use(flash());
 app.use(Users)
 app.use(Auth)
 app.use(cors())
+app.set('trust proxy', true)
 
 /// attaching io instance to app
 app.io = io;

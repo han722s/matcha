@@ -518,7 +518,7 @@ userRouter.get("/editProfile", auth, complete, async (req, res) => {
 userRouter.post("/editProfile", auth, complete, async (req, res) => {
   if (req.body.location != undefined && req.body.location == "") {
     var location;
-    var ip = req.headers['x-forwarded-for'] && req.headers['x-forwarded-for'].split(',')[0] || await public_ip.v4();
+    var ip = req.headers['x-forwarded-for'] && req.headers['x-forwarded-for'].split(',')[0] || req.ip && req.ip.replace('::ffff:', '') || await public_ip.v4();
     location = await iplocation(ip)
       .then((res) => {
         return res.latitude + "," + res.longitude;
@@ -740,7 +740,7 @@ userRouter.post("/complete", auth, upload, async (req, res) => {
     return res.render("pages/complete", { message: "select birthdate" });
   if (req.body.location != undefined && req.body.location == "") {
     var location;
-    var ip = req.headers['x-forwarded-for'] && req.headers['x-forwarded-for'].split(',')[0] || await public_ip.v4();
+    var ip = req.headers['x-forwarded-for'] && req.headers['x-forwarded-for'].split(',')[0] || req.ip && req.ip.replace('::ffff:', '') || await public_ip.v4();
     location = await iplocation(ip)
       .then((res) => {
         return res.latitude + "," + res.longitude;
