@@ -630,16 +630,19 @@ userRouter.get("/users/view/:uuid", auth, complete, async (req, res) => {
     .catch((error) => {
       if (!error.response)
         return res.render("pages/view", {
+          user: undefined,
           error: "Something went wrong, try again shortly..",
           Code: 400,
         });
       if (error.response.status == 400)
         return res.render("pages/view", {
+          user: undefined,
           error: error.response.data.Error,
           Code: 400,
         });
       if (error.response.status == 404)
         return res.render("pages/view", {
+          user: undefined,
           error: error.response.data.Error,
           Code: 404,
         });
