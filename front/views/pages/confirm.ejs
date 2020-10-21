@@ -7,7 +7,6 @@
     <div id="error">
         <% if (error != undefined && Code != undefined) { %>
         <div class="jumbotron">
-          <h1 class="logo-header">Matcha</h1>
           <% if(Code == 400){ %>
           <h2 class="display-4 red-text"><i class="far fa-dizzy"></i> 400: That's an Error</h2>
           <% } %>
@@ -19,7 +18,6 @@
     <div id="success">
         <% if (success != undefined) { %>
             <div class="jumbotron">
-              <h1 class="logo-header">Matcha</h1>
               <h2 class="display-4 text-success">Success</h2>
               <hr class="my-4">
               <p><%= success %></p>
